@@ -11,22 +11,26 @@ class Solution {
         while (!pq.isEmpty()) {
             int[] first = pq.poll();
 
+            int count1 = first[0];
+            char ch1 = (char) first[1];
+
             int n = sb.length();
-            // If adding first causes XXX
-            if (n >= 2 && sb.charAt(n - 1) == first[1] && sb.charAt(n - 2) == first[1]) {
-                if (pq.isEmpty()) break; // cannot add more
+            if (n >= 2 && sb.charAt(n - 1) == ch1 && sb.charAt(n - 2) == ch1) {
+                if (pq.isEmpty()) break;
 
                 int[] second = pq.poll();
-                sb.append((char) second[1]);
-                second[0]--;
+                int count2 = second[0];
+                char ch2 = (char) second[1];
 
-                if (second[0] > 0) pq.add(second);
+                sb.append(ch2);
+                count2--;
+
+                if (count2 > 0) pq.add(new int[]{count2, ch2});
                 pq.add(first);
             } else {
-                sb.append((char) first[1]);
-                first[0]--;
-
-                if (first[0] > 0) pq.add(first);
+                sb.append(ch1);
+                count1--;
+                if (count1 > 0) pq.add(new int[]{count1, ch1});
             }
         }
 
