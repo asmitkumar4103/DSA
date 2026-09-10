@@ -1,28 +1,41 @@
 class Solution {
+
     public void merge(int[] nums1, int m, int[] nums2, int n) {
 
-        int[] temp = new int[m + n];
+        int[] res = new int[m + n];
 
-        int i = 0, j = 0, k = 0;
+        int i = 0;
+        int j = 0;
+        int id = 0;
 
         while (i < m && j < n) {
+
             if (nums1[i] <= nums2[j]) {
-                temp[k++] = nums1[i++];
+                res[id] = nums1[i];
+                i++;
             } else {
-                temp[k++] = nums2[j++];
+                res[id] = nums2[j];
+                j++;
             }
+
+            id++;
         }
 
         while (i < m) {
-            temp[k++] = nums1[i++];
+            res[id] = nums1[i];
+            i++;
+            id++;
         }
 
         while (j < n) {
-            temp[k++] = nums2[j++];
+            res[id] = nums2[j];
+            j++;
+            id++;
         }
 
-        for (int x = 0; x < m + n; x++) {
-            nums1[x] = temp[x];
+        // res ko nums1 mein copy karo
+        for (int k = 0; k < m + n; k++) {
+            nums1[k] = res[k];
         }
     }
 }
